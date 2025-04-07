@@ -1,7 +1,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import { Button } from "../components/ui/button";
-import { ChevronDown, Code, Terminal } from "lucide-react";
+import { ChevronDown, Code, Terminal, Brackets } from "lucide-react";
 
 const Hero = () => {
   const gridRef = useRef<HTMLDivElement>(null);
@@ -67,13 +67,38 @@ const Hero = () => {
       {/* Content */}
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center max-w-4xl mx-auto">
-          <div className="inline-block mb-4 px-6 py-2 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-sm">
-            <div className="flex items-center gap-2">
-              <Terminal size={16} className="text-primary" />
-              <span className="text-sm font-mono font-medium text-primary">$ powering_future = true</span>
+          <div className="inline-block terminal mb-6 backdrop-blur-md w-auto max-w-full">
+            <div className="terminal-header flex items-center justify-between px-4">
+              <div className="flex space-x-2">
+                <span className="h-3 w-3 rounded-full bg-red-500"></span>
+                <span className="h-3 w-3 rounded-full bg-yellow-500"></span>
+                <span className="h-3 w-3 rounded-full bg-green-500"></span>
+              </div>
+              <span className="text-xs font-mono text-muted-foreground/70">solutions.js</span>
+              <span className="w-4"></span>
+            </div>
+            <div className="px-6 py-4 text-left overflow-hidden">
+              <div className="font-mono text-sm">
+                <span className="syntax-comment">// Premium solutions for modern businesses</span>
+                <div className="mt-2">
+                  <span className="syntax-keyword">const</span> <span className="text-blue-400">digitalSolution</span> <span className="text-white/90">=</span> <span className="syntax-keyword">new</span> <span className="text-green-400">Solution</span><span className="text-white/90">({</span>
+                </div>
+                <div className="pl-5 mt-1">
+                  <span className="text-yellow-400">type</span><span className="text-white/90">:</span> <span className="syntax-string">"Premium"</span><span className="text-white/90">,</span>
+                </div>
+                <div className="pl-5">
+                  <span className="text-yellow-400">target</span><span className="text-white/90">:</span> <span className="syntax-string">"Modern Business"</span><span className="text-white/90">,</span>
+                </div>
+                <div className="pl-5">
+                  <span className="text-yellow-400">quality</span><span className="text-white/90">:</span> <span className="syntax-string">"Enterprise Grade"</span>
+                </div>
+                <div className="mt-1">
+                  <span className="text-white/90">});</span>
+                </div>
+              </div>
             </div>
           </div>
-          
+
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 animate-fade-in tracking-tight">
             <span className="text-gradient">Transforming Ideas</span>
             <br />

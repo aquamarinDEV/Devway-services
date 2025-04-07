@@ -24,7 +24,7 @@ const Header = () => {
     >
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <div className="flex items-center">
-          <span className="text-2xl font-bold text-gradient">TechNova</span>
+          <span className="text-2xl font-bold text-gradient">Devway</span>
         </div>
         
         {/* Desktop Navigation */}

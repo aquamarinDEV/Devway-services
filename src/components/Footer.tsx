@@ -9,7 +9,7 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           <div>
-            <h3 className="text-2xl font-bold mb-6 text-gradient">TechNova</h3>
+            <h3 className="text-2xl font-bold mb-6 text-gradient">Devway</h3>
             <p className="text-muted-foreground mb-6">
               Transforming ideas into powerful software solutions that drive business innovation and growth.
             </p>
@@ -74,7 +74,7 @@ const Footer = () => {
         <div className="border-t border-white/5 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm text-muted-foreground mb-4 md:mb-0">
-              © {currentYear} TechNova. All rights reserved.
+              © {currentYear} Devway. All rights reserved.
             </p>
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
               <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>

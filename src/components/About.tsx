@@ -14,11 +14,11 @@ const About = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="order-2 lg:order-1">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              <span className="text-gradient">About TechNova</span>
+              <span className="text-gradient">About Devway</span>
             </h2>
             
             <p className="text-lg text-muted-foreground mb-6">
-              Founded in 2015, TechNova has been at the forefront of software innovation, 
+              Founded in 2015, Devway has been at the forefront of software innovation, 
               helping businesses transform their digital presence and operational efficiency through 
               cutting-edge technology solutions.
             </p>

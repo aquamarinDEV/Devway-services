@@ -37,7 +37,7 @@ const Hero = () => {
         ref={gridRef}
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: `radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(123, 97, 255, 0.1) 0%, transparent 40%)`
+          backgroundImage: `radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(220, 38, 38, 0.1) 0%, transparent 40%)`
         }}
       >
         <div className="absolute top-20 left-10 w-72 h-72 bg-primary/20 rounded-full filter blur-3xl animate-pulse-glow"></div>

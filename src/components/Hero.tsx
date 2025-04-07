@@ -74,7 +74,10 @@ const Hero = () => {
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="w-full h-full bg-gradient-to-br from-primary/20 via-transparent to-accent/20 opacity-30 rounded-xl" />
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-2xl font-light">Your Product Dashboard</span>
+                <div className="space-y-4 text-center">
+                  <h3 className="text-2xl font-semibold">Digital Solutions for Modern Businesses</h3>
+                  <p className="text-muted-foreground max-w-lg mx-auto">Bespoke software development that powers your business growth</p>
+                </div>
               </div>
             </div>
           </div>

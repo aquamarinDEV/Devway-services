@@ -31,7 +31,7 @@ const Header = () => {
         <nav className="hidden md:flex items-center space-x-8">
           <a href="#services" className="text-foreground hover:text-primary transition-colors">Services</a>
           <a href="#about" className="text-foreground hover:text-primary transition-colors">About</a>
-          <a href="#team" className="text-foreground hover:text-primary transition-colors">Team</a>
+          <a href="#projects" className="text-foreground hover:text-primary transition-colors">Projects</a>
           <a href="#contact" className="text-foreground hover:text-primary transition-colors">Contact</a>
           <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">Get Started</Button>
         </nav>
@@ -59,7 +59,7 @@ const Header = () => {
           <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
             <a href="#services" className="text-foreground hover:text-primary transition-colors py-2" onClick={() => setIsMobileMenuOpen(false)}>Services</a>
             <a href="#about" className="text-foreground hover:text-primary transition-colors py-2" onClick={() => setIsMobileMenuOpen(false)}>About</a>
-            <a href="#team" className="text-foreground hover:text-primary transition-colors py-2" onClick={() => setIsMobileMenuOpen(false)}>Team</a>
+            <a href="#projects" className="text-foreground hover:text-primary transition-colors py-2" onClick={() => setIsMobileMenuOpen(false)}>Projects</a>
             <a href="#contact" className="text-foreground hover:text-primary transition-colors py-2" onClick={() => setIsMobileMenuOpen(false)}>Contact</a>
             <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">Get Started</Button>
           </div>

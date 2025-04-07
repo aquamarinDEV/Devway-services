@@ -66,7 +66,7 @@ const Projects = () => {
         <div className="text-center mb-16">
           <div className="inline-flex items-center justify-center px-4 py-1 mb-4 rounded-full bg-primary/10 border border-primary/20">
             <Github size={14} className="mr-2 text-primary" />
-            <span className="text-sm font-medium text-primary font-mono">projects.filter(p => p.isSuccessful)</span>
+            <span className="text-sm font-medium text-primary font-mono">projects.filter(p =&gt; p.isSuccessful)</span>
           </div>
           
           <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">

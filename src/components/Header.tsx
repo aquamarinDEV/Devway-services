@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from "../components/ui/button";
-import { ChevronDown } from "lucide-react";
+import { Code, Menu, X, ChevronDown } from "lucide-react";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -19,43 +19,63 @@ const Header = () => {
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'backdrop-blur-lg bg-background/80 shadow-md' : 'bg-transparent'
+        isScrolled ? 'backdrop-blur-xl bg-background/80 shadow-md border-b border-white/5' : 'bg-transparent'
       }`}
     >
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <div className="flex items-center">
-          <span className="text-2xl font-bold text-gradient">Devway</span>
+          <div className="relative">
+            <span className="text-2xl font-bold text-gradient">Devway</span>
+            <span className="absolute -top-1 -right-2 h-2 w-2 bg-primary rounded-full animate-pulse"></span>
+          </div>
+          
+          {/* Decorative element */}
+          <div className="hidden md:flex items-center ml-6 pl-6 border-l border-white/10">
+            <Code size={16} className="text-primary mr-2" />
+            <span className="text-xs text-muted-foreground font-mono">dev studio</span>
+          </div>
         </div>
         
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
-          <a href="#services" className="text-foreground hover:text-primary transition-colors">Services</a>
-          <a href="#about" className="text-foreground hover:text-primary transition-colors">About</a>
-          <a href="#projects" className="text-foreground hover:text-primary transition-colors">Projects</a>
-          <a href="#contact" className="text-foreground hover:text-primary transition-colors">Contact</a>
-          <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">Get Started</Button>
+          <a href="#services" className="text-foreground hover:text-primary transition-colors relative group">
+            Services
+            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="#about" className="text-foreground hover:text-primary transition-colors relative group">
+            About
+            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="#projects" className="text-foreground hover:text-primary transition-colors relative group">
+            Projects
+            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="#contact" className="text-foreground hover:text-primary transition-colors relative group">
+            Contact
+            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <Button className="bg-primary hover:bg-primary/90 text-primary-foreground flex items-center gap-1">
+            <span>Start Project</span>
+            <ChevronDown size={16} />
+          </Button>
         </nav>
         
         {/* Mobile Menu Button */}
         <button 
-          className="md:hidden text-foreground"
+          className="md:hidden text-foreground hover:text-primary transition-colors"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           {isMobileMenuOpen ? (
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            <X className="h-6 w-6" />
           ) : (
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
+            <Menu className="h-6 w-6" />
           )}
         </button>
       </div>
       
       {/* Mobile Navigation */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-background/95 backdrop-blur-lg">
+        <div className="md:hidden bg-background/95 backdrop-blur-lg border-t border-white/5">
           <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
             <a href="#services" className="text-foreground hover:text-primary transition-colors py-2" onClick={() => setIsMobileMenuOpen(false)}>Services</a>
             <a href="#about" className="text-foreground hover:text-primary transition-colors py-2" onClick={() => setIsMobileMenuOpen(false)}>About</a>

@@ -76,4 +76,48 @@
   .text-gradient-accent {
     @apply bg-gradient-to-br from-accent via-accent/80 to-accent/60 bg-clip-text text-transparent;
   }
+  
+  /* Code syntax highlighting inspired styles */
+  .syntax-keyword {
+    @apply text-primary;
+  }
+  
+  .syntax-string {
+    @apply text-green-400;
+  }
+  
+  .syntax-comment {
+    @apply text-muted-foreground;
+  }
+  
+  /* Terminal like decoration */
+  .terminal {
+    @apply bg-background border border-white/10 rounded-lg overflow-hidden;
+  }
+  
+  .terminal-header {
+    @apply bg-secondary/50 h-8 flex items-center px-4 border-b border-white/5;
+  }
+  
+  .terminal-body {
+    @apply p-4 font-mono text-sm;
+  }
+  
+  /* Grid pattern background */
+  .bg-grid-pattern {
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+  
+  /* Code line decoration */
+  .code-line {
+    @apply border-l-2 border-primary pl-3 my-1;
+  }
+  
+  /* Tech tag styles */
+  .tech-tag {
+    @apply inline-block px-2 py-0.5 bg-secondary/40 rounded-md text-xs font-mono border border-white/5;
+  }
 }
+

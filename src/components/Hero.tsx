@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Button } from "../components/ui/button";
 import { ChevronDown, Code, Terminal } from "lucide-react";
+import { useIsMobile } from "../hooks/use-mobile";
 import {
   Dialog,
   DialogContent,
@@ -52,6 +53,7 @@ const techStack = [
 const Hero = () => {
   const gridRef = useRef<HTMLDivElement>(null);
   const [techStackDialogOpen, setTechStackDialogOpen] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -76,6 +78,14 @@ const Hero = () => {
       }
     };
   }, []);
+
+  const handleStartProject = () => {
+    // Scroll to contact section when Start Project button is clicked
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-16">
@@ -139,7 +149,11 @@ const Hero = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row justify-center gap-4 mb-16">
-            <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-8 py-6">
+            <Button 
+              size="lg" 
+              className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-8 py-6"
+              onClick={handleStartProject}
+            >
               Start Your Project
             </Button>
             <Button 
@@ -172,16 +186,16 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Tech Stack Dialog */}
+      {/* Tech Stack Dialog - Improved for mobile */}
       <Dialog open={techStackDialogOpen} onOpenChange={setTechStackDialogOpen}>
-        <DialogContent className="sm:max-w-4xl">
+        <DialogContent className={`sm:max-w-4xl ${isMobile ? 'w-[95vw] p-4' : ''}`}>
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold text-gradient">Our Technology Stack</DialogTitle>
             <DialogDescription>
               We use cutting-edge technologies to deliver robust, scalable, and high-performance solutions
             </DialogDescription>
           </DialogHeader>
-          <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className={`mt-6 grid ${isMobile ? 'grid-cols-1 gap-4' : 'grid-cols-1 md:grid-cols-2 gap-6'}`}>
             {techStack.map((category) => (
               <div key={category.category} className="space-y-4">
                 <h3 className="text-lg font-semibold text-primary">{category.category}</h3>
@@ -191,9 +205,9 @@ const Hero = () => {
                       <div className="flex-shrink-0 h-8 w-8 bg-primary/10 rounded-md flex items-center justify-center text-lg mr-3">
                         {tech.icon}
                       </div>
-                      <div>
+                      <div className={isMobile ? "flex-1" : ""}>
                         <h4 className="font-medium">{tech.name}</h4>
-                        <p className="text-sm text-muted-foreground">{tech.description}</p>
+                        <p className={`text-sm text-muted-foreground ${isMobile ? 'line-clamp-2' : ''}`}>{tech.description}</p>
                       </div>
                     </div>
                   ))}

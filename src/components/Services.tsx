@@ -2,6 +2,14 @@
 import React, { useState } from 'react';
 import { Button } from "../components/ui/button";
 import { CheckCircle, Code, Database, Globe, Server, ServerCog, ArrowRight } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { useIsMobile } from "../hooks/use-mobile";
 
 const servicesData = [
   {
@@ -13,7 +21,8 @@ const servicesData = [
       "Progressive Web Apps",
       "Single Page Applications",
       "E-commerce Solutions"
-    ]
+    ],
+    details: "Our web development services use the latest frameworks and technologies to create fast, responsive, and user-friendly websites and web applications. We focus on performance, accessibility, and SEO to ensure your web presence drives business results."
   },
   {
     icon: ServerCog,
@@ -24,7 +33,8 @@ const servicesData = [
       "Customer Relationship Management",
       "Workflow Automation",
       "Legacy System Integration"
-    ]
+    ],
+    details: "We build bespoke software solutions designed specifically for your business needs. Whether you need to streamline operations, improve customer engagement, or integrate with existing systems, our custom software development services deliver scalable, maintainable solutions."
   },
   {
     icon: Database,
@@ -35,7 +45,8 @@ const servicesData = [
       "Predictive Analytics",
       "Data Visualization",
       "Machine Learning Integration"
-    ]
+    ],
+    details: "Our data analytics services help you make sense of your data and turn it into actionable insights. We use advanced analytics tools and techniques to identify patterns, predict trends, and visualize results in ways that drive better business decisions."
   },
   {
     icon: Server,
@@ -46,12 +57,21 @@ const servicesData = [
       "DevOps Implementation",
       "Serverless Architecture",
       "24/7 Monitoring & Support"
-    ]
+    ],
+    details: "We provide comprehensive cloud solutions to help you leverage the power of cloud computing. From infrastructure setup and migration to ongoing management and optimization, we ensure your cloud environment is secure, scalable, and cost-effective."
   }
 ];
 
 const Services = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [serviceDetailsOpen, setServiceDetailsOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState<(typeof servicesData)[0] | null>(null);
+  const isMobile = useIsMobile();
+
+  const handleLearnMore = (service: (typeof servicesData)[0]) => {
+    setSelectedService(service);
+    setServiceDetailsOpen(true);
+  };
 
   return (
     <section id="services" className="py-24 relative">
@@ -99,6 +119,7 @@ const Services = () => {
               <Button 
                 variant="link" 
                 className="text-primary p-0 h-auto flex items-center hover:text-primary/80"
+                onClick={() => handleLearnMore(service)}
               >
                 <span className="mr-1">Learn more</span>
                 <ArrowRight size={14} />
@@ -107,6 +128,60 @@ const Services = () => {
           ))}
         </div>
       </div>
+
+      {/* Service Details Dialog */}
+      <Dialog open={serviceDetailsOpen} onOpenChange={setServiceDetailsOpen}>
+        <DialogContent className={`sm:max-w-2xl ${isMobile ? 'w-[95vw] p-4' : ''}`}>
+          {selectedService && (
+            <>
+              <DialogHeader>
+                <div className="flex items-center gap-3">
+                  <div className="p-3 rounded-lg bg-primary/10 text-primary">
+                    <selectedService.icon size={24} />
+                  </div>
+                  <DialogTitle className="text-2xl font-bold">{selectedService.title}</DialogTitle>
+                </div>
+                <DialogDescription>
+                  {selectedService.description}
+                </DialogDescription>
+              </DialogHeader>
+              
+              <div className="mt-6">
+                <h4 className="font-medium mb-3">Overview</h4>
+                <p className="text-muted-foreground mb-6">{selectedService.details}</p>
+                
+                <h4 className="font-medium mb-3">Key Benefits</h4>
+                <ul className="space-y-2 mb-6">
+                  {selectedService.benefits.map((benefit, i) => (
+                    <li key={i} className="flex items-start">
+                      <CheckCircle size={18} className="mr-3 mt-0.5 text-primary flex-shrink-0" />
+                      <span>{benefit}</span>
+                    </li>
+                  ))}
+                </ul>
+                
+                <div className="mt-8 pt-6 border-t border-white/10 text-center">
+                  <Button 
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                    onClick={() => {
+                      setServiceDetailsOpen(false);
+                      // Scroll to contact section
+                      const contactSection = document.getElementById('contact');
+                      if (contactSection) {
+                        setTimeout(() => {
+                          contactSection.scrollIntoView({ behavior: 'smooth' });
+                        }, 100);
+                      }
+                    }}
+                  >
+                    Request a Consultation
+                  </Button>
+                </div>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };

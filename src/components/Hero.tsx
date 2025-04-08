@@ -9,7 +9,9 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
+  DialogClose,
 } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const techStack = [
   {
@@ -188,34 +190,42 @@ const Hero = () => {
 
       {/* Tech Stack Dialog - Improved for mobile */}
       <Dialog open={techStackDialogOpen} onOpenChange={setTechStackDialogOpen}>
-        <DialogContent className={`sm:max-w-4xl ${isMobile ? 'w-[95vw] p-4' : ''}`}>
-          <DialogHeader>
+        <DialogContent className="sm:max-w-4xl max-h-[90vh] p-4 md:p-6">
+          <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground z-10">
+            <span className="sr-only">Close</span>
+          </DialogClose>
+          
+          <DialogHeader className="pb-2">
             <DialogTitle className="text-2xl font-bold text-gradient">Our Technology Stack</DialogTitle>
             <DialogDescription>
               We use cutting-edge technologies to deliver robust, scalable, and high-performance solutions
             </DialogDescription>
           </DialogHeader>
-          <div className={`mt-6 grid ${isMobile ? 'grid-cols-1 gap-4' : 'grid-cols-1 md:grid-cols-2 gap-6'}`}>
-            {techStack.map((category) => (
-              <div key={category.category} className="space-y-4">
-                <h3 className="text-lg font-semibold text-primary">{category.category}</h3>
-                <div className="space-y-3">
-                  {category.technologies.map((tech) => (
-                    <div key={tech.name} className="flex items-start p-3 rounded-lg border border-white/10 bg-black/20">
-                      <div className="flex-shrink-0 h-8 w-8 bg-primary/10 rounded-md flex items-center justify-center text-lg mr-3">
-                        {tech.icon}
+          
+          <ScrollArea className="flex-grow overflow-auto max-h-[60vh] pr-4">
+            <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6 pb-2">
+              {techStack.map((category) => (
+                <div key={category.category} className="space-y-4">
+                  <h3 className="text-lg font-semibold text-primary">{category.category}</h3>
+                  <div className="space-y-3">
+                    {category.technologies.map((tech) => (
+                      <div key={tech.name} className="flex items-start p-3 rounded-lg border border-white/10 bg-black/20">
+                        <div className="flex-shrink-0 h-8 w-8 bg-primary/10 rounded-md flex items-center justify-center text-lg mr-3">
+                          {tech.icon}
+                        </div>
+                        <div>
+                          <h4 className="font-medium">{tech.name}</h4>
+                          <p className="text-sm text-muted-foreground">{tech.description}</p>
+                        </div>
                       </div>
-                      <div className={isMobile ? "flex-1" : ""}>
-                        <h4 className="font-medium">{tech.name}</h4>
-                        <p className={`text-sm text-muted-foreground ${isMobile ? 'line-clamp-2' : ''}`}>{tech.description}</p>
-                      </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-          <div className="mt-6 border-t border-white/10 pt-4 text-center">
+              ))}
+            </div>
+          </ScrollArea>
+          
+          <div className="mt-4 border-t border-white/10 pt-4 text-center">
             <p className="text-sm text-muted-foreground">
               Our technology choices are tailored to each project's specific needs, ensuring optimal performance and future scalability.
             </p>

@@ -2,35 +2,48 @@
 import React from 'react';
 import { Card, CardContent } from "../components/ui/card";
 import { ExternalLink, Github, Code } from "lucide-react";
+import { Link } from 'react-router-dom';
 
 const projects = [
   {
+    id: 1,
     name: "Enterprise E-Commerce Platform",
     description: "A scalable microservices-based online shopping solution with integrated payment processing and inventory management.",
     image: "/placeholder.svg",
     technologies: ["React", "Node.js", "MongoDB", "Docker"],
-    category: "Web Application"
+    category: "Web Application",
+    demoUrl: "/projects/e-commerce-platform",
+    detailsUrl: "/projects/1"
   },
   {
+    id: 2,
     name: "Healthcare Management System",
     description: "Digital platform for managing patient records, appointments, and medical staff workflows with HIPAA compliance.",
     image: "/placeholder.svg",
     technologies: ["Angular", "Express", "PostgreSQL", "AWS"],
-    category: "Enterprise Solution"
+    category: "Enterprise Solution",
+    demoUrl: "/projects/healthcare-system",
+    detailsUrl: "/projects/2"
   },
   {
+    id: 3,
     name: "Financial Analytics Dashboard",
     description: "Real-time data visualization tool for monitoring financial performance with predictive analytics capabilities.",
     image: "/placeholder.svg",
     technologies: ["Vue.js", "Python", "TensorFlow", "Redis"],
-    category: "Data Analytics"
+    category: "Data Analytics",
+    demoUrl: "/projects/financial-dashboard",
+    detailsUrl: "/projects/3"
   },
   {
+    id: 4,
     name: "Smart City Infrastructure",
     description: "IoT solution for urban management including traffic, waste, and energy optimization with machine learning algorithms.",
     image: "/placeholder.svg",
     technologies: ["React Native", "AWS", "Kubernetes", "TensorFlow"],
-    category: "IoT Solution"
+    category: "IoT Solution",
+    demoUrl: "/projects/smart-city",
+    detailsUrl: "/projects/4"
   }
 ];
 
@@ -108,12 +121,12 @@ const Projects = () => {
                   </div>
                   
                   <div className="flex justify-between items-center pt-3 border-t border-white/5">
-                    <button className="flex items-center text-xs text-primary hover:text-primary/70 transition-colors">
+                    <Link to={project.detailsUrl} className="flex items-center text-xs text-primary hover:text-primary/70 transition-colors">
                       <Code size={12} className="mr-1" /> View Details
-                    </button>
-                    <button className="flex items-center text-xs text-muted-foreground hover:text-foreground transition-colors">
+                    </Link>
+                    <Link to={project.demoUrl} className="flex items-center text-xs text-muted-foreground hover:text-foreground transition-colors">
                       <ExternalLink size={12} className="mr-1" /> Live Demo
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </CardContent>
@@ -125,9 +138,9 @@ const Projects = () => {
           <p className="text-xl text-muted-foreground mb-8">
             Want to see how we can help with your next project?
           </p>
-          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-6 py-2 bg-primary text-primary-foreground hover:bg-primary/90">
+          <Link to="/projects" className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-6 py-2 bg-primary text-primary-foreground hover:bg-primary/90">
             View All Case Studies
-          </button>
+          </Link>
         </div>
       </div>
     </section>

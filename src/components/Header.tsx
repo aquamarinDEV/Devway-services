@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from "../components/ui/button";
 import { Code, Menu, X, ChevronDown } from "lucide-react";
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -24,10 +25,10 @@ const Header = () => {
     >
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <div className="flex items-center">
-          <div className="relative">
+          <Link to="/" className="relative">
             <span className="text-2xl font-bold text-gradient">Devway</span>
             <span className="absolute -top-1 -right-2 h-2 w-2 bg-primary rounded-full animate-pulse"></span>
-          </div>
+          </Link>
           
           {/* Decorative element */}
           <div className="hidden md:flex items-center ml-6 pl-6 border-l border-white/10">
@@ -38,25 +39,27 @@ const Header = () => {
         
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
-          <a href="#services" className="text-foreground hover:text-primary transition-colors relative group">
+          <Link to="/#services" className="text-foreground hover:text-primary transition-colors relative group">
             Services
             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-          </a>
-          <a href="#about" className="text-foreground hover:text-primary transition-colors relative group">
+          </Link>
+          <Link to="/#about" className="text-foreground hover:text-primary transition-colors relative group">
             About
             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-          </a>
-          <a href="#projects" className="text-foreground hover:text-primary transition-colors relative group">
+          </Link>
+          <Link to="/projects" className="text-foreground hover:text-primary transition-colors relative group">
             Projects
             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-          </a>
-          <a href="#contact" className="text-foreground hover:text-primary transition-colors relative group">
+          </Link>
+          <Link to="/contact" className="text-foreground hover:text-primary transition-colors relative group">
             Contact
             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-          </a>
-          <Button className="bg-primary hover:bg-primary/90 text-primary-foreground flex items-center gap-1">
-            <span>Start Project</span>
-            <ChevronDown size={16} />
+          </Link>
+          <Button className="bg-primary hover:bg-primary/90 text-primary-foreground flex items-center gap-1" asChild>
+            <Link to="/contact">
+              <span>Start Project</span>
+              <ChevronDown size={16} />
+            </Link>
           </Button>
         </nav>
         
@@ -77,11 +80,13 @@ const Header = () => {
       {isMobileMenuOpen && (
         <div className="md:hidden bg-background/95 backdrop-blur-lg border-t border-white/5">
           <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
-            <a href="#services" className="text-foreground hover:text-primary transition-colors py-2" onClick={() => setIsMobileMenuOpen(false)}>Services</a>
-            <a href="#about" className="text-foreground hover:text-primary transition-colors py-2" onClick={() => setIsMobileMenuOpen(false)}>About</a>
-            <a href="#projects" className="text-foreground hover:text-primary transition-colors py-2" onClick={() => setIsMobileMenuOpen(false)}>Projects</a>
-            <a href="#contact" className="text-foreground hover:text-primary transition-colors py-2" onClick={() => setIsMobileMenuOpen(false)}>Contact</a>
-            <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">Get Started</Button>
+            <Link to="/#services" className="text-foreground hover:text-primary transition-colors py-2" onClick={() => setIsMobileMenuOpen(false)}>Services</Link>
+            <Link to="/#about" className="text-foreground hover:text-primary transition-colors py-2" onClick={() => setIsMobileMenuOpen(false)}>About</Link>
+            <Link to="/projects" className="text-foreground hover:text-primary transition-colors py-2" onClick={() => setIsMobileMenuOpen(false)}>Projects</Link>
+            <Link to="/contact" className="text-foreground hover:text-primary transition-colors py-2" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
+            <Button className="bg-primary hover:bg-primary/90 text-primary-foreground" asChild>
+              <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>Get Started</Link>
+            </Button>
           </div>
         </div>
       )}

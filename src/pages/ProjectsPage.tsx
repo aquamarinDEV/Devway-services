@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Projects from '../components/Projects';
 import Footer from '../components/Footer';
@@ -7,7 +7,7 @@ import { Pagination, PaginationContent, PaginationItem, PaginationLink } from "@
 
 const ProjectsPage = () => {
   // Set page title using useEffect
-  React.useEffect(() => {
+  useEffect(() => {
     // Update document title
     document.title = "Our Projects - Devway";
     

@@ -1,11 +1,8 @@
-
 import React from 'react';
 import { Button } from '../components/ui/button';
 import { Terminal, Code, Server, Database } from 'lucide-react';
-
 const About = () => {
-  return (
-    <section id="about" className="py-24 relative overflow-hidden">
+  return <section id="about" className="py-24 relative overflow-hidden">
       {/* Technical background elements */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full filter blur-3xl"></div>
@@ -58,9 +55,7 @@ const About = () => {
               </div>
             </div>
             
-            <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
-              Learn Our Story
-            </Button>
+            
           </div>
           
           <div className="order-1 lg:order-2 glassmorphism border border-white/10 rounded-2xl overflow-hidden h-[400px] relative">
@@ -107,8 +102,6 @@ const About = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default About;

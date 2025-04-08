@@ -61,7 +61,7 @@ const Contact = () => {
                   </svg>
                   <div>
                     <h4 className="text-lg font-medium">Email</h4>
-                    <a href="mailto:info@technova.com" className="text-muted-foreground hover:text-primary">info@devway.com</a>
+                    <a href="mailto:info@technova.com" className="text-muted-foreground hover:text-primary">Focsani, Vrancea, Romania</a>
                   </div>
                 </div>
                 

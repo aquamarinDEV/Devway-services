@@ -1,19 +1,15 @@
-
 import React from 'react';
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Textarea } from "../components/ui/textarea";
-
 const Contact = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Here you would normally handle the form submission
     console.log('Form submitted!');
   };
-
-  return (
-    <section id="contact" className="py-24 relative">
+  return <section id="contact" className="py-24 relative">
       <div className="absolute inset-0 z-0">
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary/10 rounded-full filter blur-3xl"></div>
       </div>
@@ -34,37 +30,20 @@ const Contact = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="name">Name</Label>
-                  <Input
-                    id="name"
-                    placeholder="Your name"
-                    className="bg-secondary/50 border-white/10"
-                  />
+                  <Input id="name" placeholder="Your name" className="bg-secondary/50 border-white/10" />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="Your email"
-                    className="bg-secondary/50 border-white/10"
-                  />
+                  <Input id="email" type="email" placeholder="Your email" className="bg-secondary/50 border-white/10" />
                 </div>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="subject">Subject</Label>
-                <Input
-                  id="subject"
-                  placeholder="How can we help?"
-                  className="bg-secondary/50 border-white/10"
-                />
+                <Input id="subject" placeholder="How can we help?" className="bg-secondary/50 border-white/10" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="message">Message</Label>
-                <Textarea
-                  id="message"
-                  placeholder="Tell us about your project..."
-                  className="min-h-32 bg-secondary/50 border-white/10"
-                />
+                <Textarea id="message" placeholder="Tell us about your project..." className="min-h-32 bg-secondary/50 border-white/10" />
               </div>
               <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
                 Send Message
@@ -82,7 +61,7 @@ const Contact = () => {
                   </svg>
                   <div>
                     <h4 className="text-lg font-medium">Email</h4>
-                    <a href="mailto:info@technova.com" className="text-muted-foreground hover:text-primary">info@technova.com</a>
+                    <a href="mailto:info@technova.com" className="text-muted-foreground hover:text-primary">info@devway.com</a>
                   </div>
                 </div>
                 
@@ -103,7 +82,7 @@ const Contact = () => {
                   </svg>
                   <div>
                     <h4 className="text-lg font-medium">Location</h4>
-                    <p className="text-muted-foreground">123 Innovation Drive<br/>San Francisco, CA 94103</p>
+                    <p className="text-muted-foreground">123 Innovation Drive<br />San Francisco, CA 94103</p>
                   </div>
                 </div>
               </div>
@@ -141,8 +120,6 @@ const Contact = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Contact;

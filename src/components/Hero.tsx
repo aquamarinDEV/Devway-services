@@ -1,10 +1,57 @@
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button } from "../components/ui/button";
 import { ChevronDown, Code, Terminal } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+
+const techStack = [
+  {
+    category: "Frontend",
+    technologies: [
+      { name: "React", description: "JavaScript library for building user interfaces", icon: "⚛️" },
+      { name: "Next.js", description: "React framework for production", icon: "▲" },
+      { name: "TypeScript", description: "Typed superset of JavaScript", icon: "TS" },
+      { name: "Tailwind CSS", description: "Utility-first CSS framework", icon: "🎨" }
+    ]
+  },
+  {
+    category: "Backend",
+    technologies: [
+      { name: "Node.js", description: "JavaScript runtime built on Chrome's V8 engine", icon: "🟢" },
+      { name: "Express", description: "Web framework for Node.js", icon: "🚂" },
+      { name: "NestJS", description: "Progressive Node.js framework", icon: "🐈" },
+      { name: "GraphQL", description: "Query language for APIs", icon: "◼️" }
+    ]
+  },
+  {
+    category: "Database",
+    technologies: [
+      { name: "MongoDB", description: "NoSQL database", icon: "🍃" },
+      { name: "PostgreSQL", description: "Advanced open source SQL database", icon: "🐘" },
+      { name: "Redis", description: "In-memory data structure store", icon: "🔴" },
+      { name: "Prisma", description: "Next-generation ORM", icon: "◓" }
+    ]
+  },
+  {
+    category: "DevOps",
+    technologies: [
+      { name: "Docker", description: "Platform for developing, shipping, and running applications", icon: "🐳" },
+      { name: "Kubernetes", description: "Container orchestration system", icon: "☸️" },
+      { name: "AWS", description: "Cloud computing services", icon: "☁️" },
+      { name: "CI/CD", description: "Continuous integration and deployment", icon: "🔄" }
+    ]
+  }
+];
 
 const Hero = () => {
   const gridRef = useRef<HTMLDivElement>(null);
+  const [techStackDialogOpen, setTechStackDialogOpen] = useState(false);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -95,7 +142,12 @@ const Hero = () => {
             <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-8 py-6">
               Start Your Project
             </Button>
-            <Button variant="outline" size="lg" className="border-primary/20 hover:bg-primary/10 font-medium px-8 py-6">
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="border-primary/20 hover:bg-primary/10 font-medium px-8 py-6"
+              onClick={() => setTechStackDialogOpen(true)}
+            >
               <Code size={18} className="mr-2" /> View Our Tech Stack
             </Button>
           </div>
@@ -119,6 +171,43 @@ const Hero = () => {
           </div>
         </div>
       </div>
+
+      {/* Tech Stack Dialog */}
+      <Dialog open={techStackDialogOpen} onOpenChange={setTechStackDialogOpen}>
+        <DialogContent className="sm:max-w-4xl">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-gradient">Our Technology Stack</DialogTitle>
+            <DialogDescription>
+              We use cutting-edge technologies to deliver robust, scalable, and high-performance solutions
+            </DialogDescription>
+          </DialogHeader>
+          <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+            {techStack.map((category) => (
+              <div key={category.category} className="space-y-4">
+                <h3 className="text-lg font-semibold text-primary">{category.category}</h3>
+                <div className="space-y-3">
+                  {category.technologies.map((tech) => (
+                    <div key={tech.name} className="flex items-start p-3 rounded-lg border border-white/10 bg-black/20">
+                      <div className="flex-shrink-0 h-8 w-8 bg-primary/10 rounded-md flex items-center justify-center text-lg mr-3">
+                        {tech.icon}
+                      </div>
+                      <div>
+                        <h4 className="font-medium">{tech.name}</h4>
+                        <p className="text-sm text-muted-foreground">{tech.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-6 border-t border-white/10 pt-4 text-center">
+            <p className="text-sm text-muted-foreground">
+              Our technology choices are tailored to each project's specific needs, ensuring optimal performance and future scalability.
+            </p>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* Scroll Down */}
       <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">

@@ -1,109 +1,109 @@
 
-import React from 'react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
-import { Code, Smartphone, Globe, Shield, Cloud, BarChart3 } from "lucide-react";
+import React, { useState } from 'react';
+import { Button } from "../components/ui/button";
+import { CheckCircle, Code, Database, Globe, Server, ServerCog, ArrowRight } from "lucide-react";
 
-const services = [
+const servicesData = [
   {
-    icon: <Code className="h-12 w-12 text-primary" />,
-    title: "Custom Software Development",
-    description: "We build tailored software applications that perfectly match your unique business requirements and goals."
+    icon: Globe,
+    title: "Web Development",
+    description: "Modern, responsive websites and web applications using cutting-edge technologies.",
+    benefits: [
+      "Responsive Design",
+      "Progressive Web Apps",
+      "Single Page Applications",
+      "E-commerce Solutions"
+    ]
   },
   {
-    icon: <Smartphone className="h-12 w-12 text-primary" />,
-    title: "Mobile App Development",
-    description: "Create stunning, high-performance mobile applications for iOS and Android that engage users and drive growth."
+    icon: ServerCog,
+    title: "Custom Software",
+    description: "Tailored software solutions that solve your specific business challenges.",
+    benefits: [
+      "Enterprise Resource Planning",
+      "Customer Relationship Management",
+      "Workflow Automation",
+      "Legacy System Integration"
+    ]
   },
   {
-    icon: <Globe className="h-12 w-12 text-primary" />,
-    title: "Web Application Development",
-    description: "We design and develop responsive, modern web applications that provide seamless user experiences across all devices."
+    icon: Database,
+    title: "Data Analytics",
+    description: "Transform your raw data into actionable insights with our advanced analytics.",
+    benefits: [
+      "Business Intelligence",
+      "Predictive Analytics",
+      "Data Visualization",
+      "Machine Learning Integration"
+    ]
   },
   {
-    icon: <Shield className="h-12 w-12 text-primary" />,
-    title: "Cybersecurity Solutions",
-    description: "Protect your digital assets with our comprehensive cybersecurity services and secure application development practices."
-  },
-  {
-    icon: <Cloud className="h-12 w-12 text-primary" />,
-    title: "DevOps & Cloud Services",
-    description: "Streamline your development workflow and optimize infrastructure with our expert DevOps and cloud management solutions."
-  },
-  {
-    icon: <BarChart3 className="h-12 w-12 text-primary" />,
-    title: "AI & Data Analytics",
-    description: "Leverage the power of artificial intelligence and data analytics to gain valuable insights and make data-driven decisions."
+    icon: Server,
+    title: "Cloud Solutions",
+    description: "Scalable, secure and resilient cloud infrastructure for your applications.",
+    benefits: [
+      "Cloud Migration",
+      "DevOps Implementation",
+      "Serverless Architecture",
+      "24/7 Monitoring & Support"
+    ]
   }
 ];
 
 const Services = () => {
-  return (
-    <section id="services" className="py-24 relative overflow-hidden">
-      {/* Technical background */}
-      <div className="absolute inset-0 bg-black/30 overflow-hidden">
-        <div className="absolute inset-0 opacity-5">
-          {Array.from({ length: 30 }).map((_, i) => (
-            <div 
-              key={i}
-              className="absolute whitespace-nowrap font-mono text-xs opacity-50"
-              style={{ 
-                top: `${Math.random() * 100}%`, 
-                left: `${Math.random() * 100}%`,
-                transform: `rotate(${Math.random() * 360}deg)`,
-                opacity: Math.random() * 0.5 + 0.1
-              }}
-            >
-              {Math.random() > 0.5 ? 
-                '01001010' : 
-                '{ code: true }'}
-            </div>
-          ))}
-        </div>
-      </div>
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16 max-w-3xl mx-auto">
+  return (
+    <section id="services" className="py-24 relative">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
           <div className="inline-flex items-center justify-center px-4 py-1 mb-4 rounded-full bg-primary/10 border border-primary/20">
             <Code size={14} className="mr-2 text-primary" />
-            <span className="text-sm font-medium text-primary font-mono">services.map(solution => future)</span>
+            <span className="text-sm font-medium text-primary font-mono">services.map(s =&gt; s.deliver())</span>
           </div>
           
           <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">
-            <span className="text-gradient-accent">Our Services</span>
+            <span className="text-gradient">What We Offer</span>
           </h2>
-          <p className="text-xl text-muted-foreground">
-            We offer a comprehensive range of software development services to meet the diverse needs of modern businesses.
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            We provide end-to-end solutions designed to help your business thrive in the digital age.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <Card 
-              key={index} 
-              className="glass-card glow border-white/5 overflow-hidden backdrop-blur-sm transition-all duration-300 hover:border-primary/30 hover:translate-y-[-5px]"
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {servicesData.map((service, index) => (
+            <div 
+              key={index}
+              className={`p-6 rounded-lg border border-white/5 bg-black/20 backdrop-blur-sm transition-all duration-300 hover:border-primary/20 hover:bg-black/30 ${activeIndex === index ? 'border-primary/30 bg-black/30 transform scale-[1.02]' : ''}`}
+              onMouseEnter={() => setActiveIndex(index)}
+              onMouseLeave={() => setActiveIndex(null)}
             >
-              <CardHeader className="space-y-1 pb-2">
-                <div className="mb-4 relative">
-                  {service.icon}
-                  <div className="absolute -right-1 -top-1 h-8 w-8 border-t-2 border-r-2 border-primary/40"></div>
-                  <div className="absolute -left-1 -bottom-1 h-8 w-8 border-b-2 border-l-2 border-primary/40"></div>
-                </div>
-                <CardTitle className="text-xl font-bold">{service.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-muted-foreground text-base">
-                  {service.description}
-                </CardDescription>
-              </CardContent>
-              <CardFooter>
-                <button className="text-primary hover:text-primary/80 text-sm flex items-center font-medium transition-colors">
-                  View service details
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
-              </CardFooter>
-            </Card>
+              <div className={`mb-5 p-3 rounded-lg w-12 h-12 flex items-center justify-center bg-primary/10 text-primary transition-all duration-300 ${activeIndex === index ? 'bg-primary/20' : ''}`}>
+                <service.icon size={24} />
+              </div>
+              
+              <h3 className="text-xl font-bold mb-3">{service.title}</h3>
+              
+              <p className="text-muted-foreground mb-6 text-sm">{service.description}</p>
+              
+              {/* Service benefits */}
+              <ul className="space-y-2 mb-4">
+                {service.benefits.map((benefit, i) => (
+                  <li key={i} className="flex items-start text-sm">
+                    <CheckCircle size={16} className="mr-2 mt-0.5 text-primary/70 flex-shrink-0" />
+                    <span>{benefit}</span>
+                  </li>
+                ))}
+              </ul>
+              
+              <Button 
+                variant="link" 
+                className="text-primary p-0 h-auto flex items-center hover:text-primary/80"
+              >
+                <span className="mr-1">Learn more</span>
+                <ArrowRight size={14} />
+              </Button>
+            </div>
           ))}
         </div>
       </div>

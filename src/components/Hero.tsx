@@ -81,7 +81,7 @@ const Hero = () => {
               <div className="font-mono text-sm">
                 <span className="syntax-comment">// Premium solutions for modern businesses</span>
                 <div className="mt-2">
-                  <span className="syntax-keyword">const</span> <span className="text-blue-400">digitalSolution</span> <span className="text-white/90">=</span> <span className="syntax-keyword">new</span> <span className="text-green-400">Solution</span><span className="text-white/90">({</span>
+                  <span className="syntax-keyword">const</span> <span className="text-blue-400">digitalSolution</span> <span className="text-white/90">=</span> <span className="syntax-keyword">new</span> <span className="text-green-400">Solution</span><span className="text-white/90">{"{"}</span>
                 </div>
                 <div className="pl-5 mt-1">
                   <span className="text-yellow-400">type</span><span className="text-white/90">:</span> <span className="syntax-string">"Premium"</span><span className="text-white/90">,</span>
@@ -93,7 +93,7 @@ const Hero = () => {
                   <span className="text-yellow-400">quality</span><span className="text-white/90">:</span> <span className="syntax-string">"Enterprise Grade"</span>
                 </div>
                 <div className="mt-1">
-                  <span className="text-white/90">});</span>
+                  <span className="text-white/90">{"}"});</span>
                 </div>
               </div>
             </div>

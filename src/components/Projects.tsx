@@ -2,8 +2,9 @@
 import React from 'react';
 import { Card, CardContent } from "../components/ui/card";
 import { ExternalLink, Github, Code } from "lucide-react";
+import { useNavigate } from 'react-router-dom';
 
-const projects = [
+export const projects = [
   {
     name: "Enterprise E-Commerce Platform",
     description: "A scalable microservices-based online shopping solution with integrated payment processing and inventory management.",
@@ -31,12 +32,66 @@ const projects = [
     image: "/placeholder.svg",
     technologies: ["React Native", "AWS", "Kubernetes", "TensorFlow"],
     category: "IoT Solution"
+  },
+  {
+    name: "Supply Chain Optimization",
+    description: "End-to-end supply chain management platform with real-time tracking and AI-powered inventory forecasting.",
+    image: "/placeholder.svg",
+    technologies: ["React", "Python", "GraphQL", "PostgreSQL"],
+    category: "Enterprise Solution"
+  },
+  {
+    name: "Customer Behavior Analytics",
+    description: "ML-powered analytics platform that provides deep insights into customer behavior and personalization opportunities.",
+    image: "/placeholder.svg",
+    technologies: ["React", "Python", "TensorFlow", "BigQuery"],
+    category: "Data Analytics"
+  },
+  {
+    name: "Smart Home Automation",
+    description: "IoT platform for connecting and controlling smart home devices with voice commands and mobile app integration.",
+    image: "/placeholder.svg",
+    technologies: ["React Native", "Node.js", "MQTT", "MongoDB"],
+    category: "IoT Solution"
+  },
+  {
+    name: "Content Management System",
+    description: "Custom headless CMS with API-first approach, providing content delivery for multiple frontend applications.",
+    image: "/placeholder.svg",
+    technologies: ["Next.js", "GraphQL", "Node.js", "MongoDB"],
+    category: "Web Application"
+  },
+  {
+    name: "Predictive Maintenance System",
+    description: "IoT solution for industrial equipment monitoring with predictive maintenance alerts based on ML algorithms.",
+    image: "/placeholder.svg",
+    technologies: ["Python", "TensorFlow", "React", "MongoDB"],
+    category: "IoT Solution"
+  },
+  {
+    name: "HR Management Platform",
+    description: "Comprehensive HR solution for employee management, payroll processing, and performance tracking.",
+    image: "/placeholder.svg",
+    technologies: ["Angular", "Node.js", "PostgreSQL", "Docker"],
+    category: "Enterprise Solution"
   }
 ];
 
-const Projects = () => {
+interface ProjectsProps {
+  customProjects?: typeof projects;
+}
+
+const Projects = ({ customProjects }: ProjectsProps) => {
+  const navigate = useNavigate();
+  const projectsToShow = customProjects || projects.slice(0, 4);
+
+  const handleViewAllClick = () => {
+    navigate('/projects');
+    window.scrollTo(0, 0);
+  };
+
   return (
-    <section id="projects" className="py-24 relative bg-black/30">
+    <section id="projects" className="py-16 relative bg-black/30">
       {/* Code-inspired background pattern */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-0 right-0 w-1/2 h-full opacity-10 bg-grid-pattern"></div>
@@ -63,22 +118,24 @@ const Projects = () => {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center justify-center px-4 py-1 mb-4 rounded-full bg-primary/10 border border-primary/20">
-            <Github size={14} className="mr-2 text-primary" />
-            <span className="text-sm font-medium text-primary font-mono">projects.filter(p => p.isSuccessful)</span>
+        {!customProjects && (
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center justify-center px-4 py-1 mb-4 rounded-full bg-primary/10 border border-primary/20">
+              <Github size={14} className="mr-2 text-primary" />
+              <span className="text-sm font-medium text-primary font-mono">projects.filter(p => p.isSuccessful)</span>
+            </div>
+            
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">
+              <span className="text-gradient">Our Projects</span>
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Innovative solutions we've built that showcase our expertise and drive real business results.
+            </p>
           </div>
-          
-          <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">
-            <span className="text-gradient">Our Projects</span>
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Innovative solutions we've built that showcase our expertise and drive real business results.
-          </p>
-        </div>
+        )}
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-8">
-          {projects.map((project, index) => (
+          {projectsToShow.map((project, index) => (
             <Card key={index} className="glass-card border-white/5 overflow-hidden group h-full transition-all duration-300 hover:border-primary/30 hover:translate-y-[-5px]">
               <div className="h-48 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/95 group-hover:opacity-100 opacity-0 transition-opacity z-10"></div>
@@ -121,14 +178,20 @@ const Projects = () => {
           ))}
         </div>
         
-        <div className="mt-16 text-center">
-          <p className="text-xl text-muted-foreground mb-8">
-            Want to see how we can help with your next project?
-          </p>
-          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-6 py-2 bg-primary text-primary-foreground hover:bg-primary/90">
-            View All Case Studies
-          </button>
-        </div>
+        {/* Only show "View All" button on the homepage */}
+        {!customProjects && (
+          <div className="mt-16 text-center">
+            <p className="text-xl text-muted-foreground mb-8">
+              Want to see how we can help with your next project?
+            </p>
+            <button 
+              onClick={handleViewAllClick} 
+              className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-6 py-2 bg-primary text-primary-foreground hover:bg-primary/90"
+            >
+              View All Case Studies
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

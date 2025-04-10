@@ -1,14 +1,108 @@
-import React from 'react';
+
+import React, { useState } from 'react';
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Textarea } from "../components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"; 
+import { Loader2 } from "lucide-react";
+
 const Contact = () => {
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Here you would normally handle the form submission
-    console.log('Form submitted!');
+  const { toast } = useToast();
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [loading, setLoading] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
   };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    // Validate form
+    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+      toast({
+        title: "Error",
+        description: "Please fill all fields",
+        variant: "destructive",
+      });
+      setLoading(false);
+      return;
+    }
+
+    try {
+      // Send email using EmailJS service
+      const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          service_id: "service_rqr6gfq",
+          template_id: "template_o02l0zq",
+          user_id: "XvU9wpsDQUPgfgF0T", 
+          template_params: {
+            to_email: "marin.nicu99@yahoo.com",
+            from_name: formData.name,
+            from_email: formData.email,
+            subject: formData.subject,
+            message: formData.message,
+            reply_to: formData.email
+          }
+        })
+      });
+
+      if (response.status === 200) {
+        // Send confirmation email to the user
+        await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            service_id: "service_rqr6gfq",
+            template_id: "template_utoyhbk",
+            user_id: "XvU9wpsDQUPgfgF0T",
+            template_params: {
+              to_name: formData.name,
+              to_email: formData.email,
+              subject: `Thank you for contacting Devway - ${formData.subject}`,
+              message: formData.message
+            }
+          })
+        });
+
+        toast({
+          title: "Success!",
+          description: "Your message has been sent. We'll get back to you soon.",
+        });
+        
+        setFormSubmitted(true);
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        throw new Error("Failed to send email");
+      }
+    } catch (error) {
+      console.error("Error sending email:", error);
+      toast({
+        title: "Error",
+        description: "Failed to send your message. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return <section id="contact" className="py-24 relative">
       <div className="absolute inset-0 z-0">
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary/10 rounded-full filter blur-3xl"></div>
@@ -25,31 +119,83 @@ const Contact = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="glass-card rounded-xl p-6 md:p-8">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <Label htmlFor="name">Name</Label>
-                  <Input id="name" placeholder="Your name" className="bg-secondary/50 border-white/10" />
+          {formSubmitted ? (
+            <div className="glass-card rounded-xl p-6 md:p-8">
+              <Alert className="bg-primary/10 border-primary/20">
+                <AlertTitle className="text-xl font-semibold mb-2">Thank You!</AlertTitle>
+                <AlertDescription className="text-base">
+                  <p className="mb-4">Your message has been successfully sent. We appreciate you contacting Devway.</p>
+                  <p className="mb-4">We've sent you a confirmation email. Our team will get back to you shortly!</p>
+                  <Button 
+                    onClick={() => setFormSubmitted(false)} 
+                    className="mt-2 bg-primary hover:bg-primary/90 text-primary-foreground"
+                  >
+                    Send Another Message
+                  </Button>
+                </AlertDescription>
+              </Alert>
+            </div>
+          ) : (
+            <div className="glass-card rounded-xl p-6 md:p-8">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="name">Name</Label>
+                    <Input 
+                      id="name" 
+                      placeholder="Your name" 
+                      className="bg-secondary/50 border-white/10" 
+                      value={formData.name}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email</Label>
+                    <Input 
+                      id="email" 
+                      type="email" 
+                      placeholder="Your email" 
+                      className="bg-secondary/50 border-white/10" 
+                      value={formData.email}
+                      onChange={handleChange}
+                    />
+                  </div>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" placeholder="Your email" className="bg-secondary/50 border-white/10" />
+                  <Label htmlFor="subject">Subject</Label>
+                  <Input 
+                    id="subject" 
+                    placeholder="How can we help?" 
+                    className="bg-secondary/50 border-white/10" 
+                    value={formData.subject}
+                    onChange={handleChange}
+                  />
                 </div>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="subject">Subject</Label>
-                <Input id="subject" placeholder="How can we help?" className="bg-secondary/50 border-white/10" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="message">Message</Label>
-                <Textarea id="message" placeholder="Tell us about your project..." className="min-h-32 bg-secondary/50 border-white/10" />
-              </div>
-              <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
-                Send Message
-              </Button>
-            </form>
-          </div>
+                <div className="space-y-2">
+                  <Label htmlFor="message">Message</Label>
+                  <Textarea 
+                    id="message" 
+                    placeholder="Tell us about your project..." 
+                    className="min-h-32 bg-secondary/50 border-white/10" 
+                    value={formData.message}
+                    onChange={handleChange}
+                  />
+                </div>
+                <Button 
+                  type="submit" 
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Sending Message...
+                    </>
+                  ) : 'Send Message'}
+                </Button>
+              </form>
+            </div>
+          )}
 
           <div className="space-y-8">
             <div>
@@ -61,7 +207,7 @@ const Contact = () => {
                   </svg>
                   <div>
                     <h4 className="text-lg font-medium">Email</h4>
-                    <a href="mailto:info@technova.com" className="text-muted-foreground hover:text-primary">info@devway.ro
+                    <a href="mailto:marin.nicu99@yahoo.com" className="text-muted-foreground hover:text-primary">marin.nicu99@yahoo.com
                   </a>
                   </div>
                 </div>

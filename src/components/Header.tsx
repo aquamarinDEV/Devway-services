@@ -19,6 +19,11 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Scroll to top when navigating to a new page
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   const handleNavigation = (sectionId: string | null, path: string = '/') => {
     setIsMobileMenuOpen(false);
     

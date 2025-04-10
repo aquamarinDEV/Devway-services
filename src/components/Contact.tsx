@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
@@ -7,6 +6,7 @@ import { Textarea } from "../components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"; 
 import { Loader2 } from "lucide-react";
+import emailjs from 'emailjs-com';
 
 const Contact = () => {
   const { toast } = useToast();
@@ -40,70 +40,41 @@ const Contact = () => {
     }
 
     try {
-      // Send email using a simulated success for demo purposes
-      // In a real application, you would use a working email service
-      // The current EmailJS configuration is not working (404 Account not found)
-      
-      console.log("Sending email with data:", {
-        to: "marin.nicu99@yahoo.com",
-        from: formData.name,
-        email: formData.email,
+      // Send the email to site owner
+      const templateParams = {
+        to_email: "marin.nicu99@yahoo.com",
+        from_name: formData.name,
+        from_email: formData.email,
         subject: formData.subject,
+        message: formData.message,
+        reply_to: formData.email
+      };
+      
+      await emailjs.send(
+        "service_e9rhgul",
+        "template_4lvcrg8",
+        templateParams,
+        "N-w_S3420WEPGmjWF"
+      );
+      
+      // Send confirmation email to the user
+      const confirmationParams = {
+        to_name: formData.name,
+        to_email: formData.email,
+        subject: `Thank you for contacting Devway - ${formData.subject}`,
         message: formData.message
-      });
+      };
       
-      // Simulate successful email sending after a short delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // For a real implementation, uncomment and fix this code with correct EmailJS credentials
-      /*
-      const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          service_id: "YOUR_SERVICE_ID",
-          template_id: "YOUR_TEMPLATE_ID",
-          user_id: "YOUR_USER_ID", 
-          template_params: {
-            to_email: "marin.nicu99@yahoo.com",
-            from_name: formData.name,
-            from_email: formData.email,
-            subject: formData.subject,
-            message: formData.message,
-            reply_to: formData.email
-          }
-        })
-      });
-      
-      if (response.status !== 200) {
-        throw new Error("Failed to send email");
-      }
-      
-      // Send confirmation email
-      await fetch("https://api.emailjs.com/api/v1.0/email/send", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          service_id: "YOUR_SERVICE_ID",
-          template_id: "YOUR_CONFIRMATION_TEMPLATE_ID",
-          user_id: "YOUR_USER_ID",
-          template_params: {
-            to_name: formData.name,
-            to_email: formData.email,
-            subject: `Thank you for contacting Devway - ${formData.subject}`,
-            message: formData.message
-          }
-        })
-      });
-      */
+      await emailjs.send(
+        "service_e9rhgul",
+        "template_rkrkkcq",
+        confirmationParams,
+        "N-w_S3420WEPGmjWF"
+      );
 
       toast({
-        title: "Success!",
-        description: "Your message has been sent. We'll get back to you soon.",
+        title: "Succes!",
+        description: "Mesajul tău a fost trimis. Vom reveni cu un răspuns în curând.",
       });
       
       setFormSubmitted(true);
@@ -111,8 +82,8 @@ const Contact = () => {
     } catch (error) {
       console.error("Error sending email:", error);
       toast({
-        title: "Error",
-        description: "Failed to send your message. Please try again later.",
+        title: "Eroare",
+        description: "Nu s-a putut trimite mesajul. Te rugăm să încerci din nou mai târziu.",
         variant: "destructive",
       });
     } finally {
@@ -268,7 +239,7 @@ const Contact = () => {
                 <a href="#" className="h-10 w-10 rounded-full flex items-center justify-center bg-secondary/50 hover:bg-primary/20 transition-colors">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <path d="M16 11.37A4 4 0 11 12.63 8 4 4 0 0 1 16 11.37z"></path>
                     <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                   </svg>
                 </a>

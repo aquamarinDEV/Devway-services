@@ -13,7 +13,7 @@ const Index = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    // Scroll to top when component mounts
+    // Scroll to top when component mounts or pathname changes
     window.scrollTo(0, 0);
   }, [pathname]);
 

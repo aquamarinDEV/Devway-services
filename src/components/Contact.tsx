@@ -40,6 +40,9 @@ const Contact = () => {
     }
 
     try {
+      // Initialize EmailJS if not already initialized
+      emailjs.init("N-w_S3420WEPGmjWF");
+
       // Send the email to site owner
       const templateParams = {
         to_email: "marin.nicu99@yahoo.com",
@@ -53,8 +56,7 @@ const Contact = () => {
       await emailjs.send(
         "service_e9rhgul",
         "template_4lvcrg8",
-        templateParams,
-        "N-w_S3420WEPGmjWF"
+        templateParams
       );
       
       // Send confirmation email to the user
@@ -68,8 +70,7 @@ const Contact = () => {
       await emailjs.send(
         "service_e9rhgul",
         "template_rkrkkcq",
-        confirmationParams,
-        "N-w_S3420WEPGmjWF"
+        confirmationParams
       );
 
       toast({

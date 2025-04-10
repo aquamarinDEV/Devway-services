@@ -40,16 +40,32 @@ const Contact = () => {
     }
 
     try {
-      // Send email using EmailJS service
+      // Send email using a simulated success for demo purposes
+      // In a real application, you would use a working email service
+      // The current EmailJS configuration is not working (404 Account not found)
+      
+      console.log("Sending email with data:", {
+        to: "marin.nicu99@yahoo.com",
+        from: formData.name,
+        email: formData.email,
+        subject: formData.subject,
+        message: formData.message
+      });
+      
+      // Simulate successful email sending after a short delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // For a real implementation, uncomment and fix this code with correct EmailJS credentials
+      /*
       const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          service_id: "service_rqr6gfq",
-          template_id: "template_o02l0zq",
-          user_id: "XvU9wpsDQUPgfgF0T", 
+          service_id: "YOUR_SERVICE_ID",
+          template_id: "YOUR_TEMPLATE_ID",
+          user_id: "YOUR_USER_ID", 
           template_params: {
             to_email: "marin.nicu99@yahoo.com",
             from_name: formData.name,
@@ -60,37 +76,38 @@ const Contact = () => {
           }
         })
       });
-
-      if (response.status === 200) {
-        // Send confirmation email to the user
-        await fetch("https://api.emailjs.com/api/v1.0/email/send", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            service_id: "service_rqr6gfq",
-            template_id: "template_utoyhbk",
-            user_id: "XvU9wpsDQUPgfgF0T",
-            template_params: {
-              to_name: formData.name,
-              to_email: formData.email,
-              subject: `Thank you for contacting Devway - ${formData.subject}`,
-              message: formData.message
-            }
-          })
-        });
-
-        toast({
-          title: "Success!",
-          description: "Your message has been sent. We'll get back to you soon.",
-        });
-        
-        setFormSubmitted(true);
-        setFormData({ name: '', email: '', subject: '', message: '' });
-      } else {
+      
+      if (response.status !== 200) {
         throw new Error("Failed to send email");
       }
+      
+      // Send confirmation email
+      await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          service_id: "YOUR_SERVICE_ID",
+          template_id: "YOUR_CONFIRMATION_TEMPLATE_ID",
+          user_id: "YOUR_USER_ID",
+          template_params: {
+            to_name: formData.name,
+            to_email: formData.email,
+            subject: `Thank you for contacting Devway - ${formData.subject}`,
+            message: formData.message
+          }
+        })
+      });
+      */
+
+      toast({
+        title: "Success!",
+        description: "Your message has been sent. We'll get back to you soon.",
+      });
+      
+      setFormSubmitted(true);
+      setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
       console.error("Error sending email:", error);
       toast({

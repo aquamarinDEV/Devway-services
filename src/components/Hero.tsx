@@ -134,20 +134,20 @@ const Hero = () => {
           </div>
           
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 animate-fade-in tracking-tight">
-            <span className="text-gradient">Transforming Ideas</span>
+            <span className="text-gradient">Transformam procese</span>
             <br />
             <span className="relative">
-              Into 
+              In 
               <span className="ml-3 relative inline-block">
-                <span className="text-primary">Powerful</span>
+                <span className="text-primary">Automatizari</span>
                 <span className="absolute -bottom-2 left-0 h-[3px] w-full bg-primary"></span>
               </span> 
-              Software
+              Inteligente
             </span>
           </h1>
           
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            We build cutting-edge software solutions that help businesses scale, innovate, and thrive in the digital landscape.
+            Construim automatizări care ajută afacerile să se optimizeze, să inoveze și să prospere în peisajul digital.
           </p>
           
           <div className="flex flex-col sm:flex-row justify-center gap-4 mb-16">
@@ -156,7 +156,7 @@ const Hero = () => {
               className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-8 py-6"
               onClick={handleStartProject}
             >
-              Start Your Project
+              Contact
             </Button>
             <Button 
               variant="outline" 
@@ -164,7 +164,7 @@ const Hero = () => {
               className="border-primary/20 hover:bg-primary/10 font-medium px-8 py-6"
               onClick={() => setTechStackDialogOpen(true)}
             >
-              <Code size={18} className="mr-2" /> View Our Tech Stack
+              <Code size={18} className="mr-2" /> Tech Stack
             </Button>
           </div>
           
